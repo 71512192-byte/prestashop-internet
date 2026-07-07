@@ -1,32 +1,17 @@
 services:
-  # 1. Este bloque creará la base de datos MySQL en la nube de forma automática
-  - type: database
-    name: prestashop-db
-    databaseName: prestashop
-    user: prestashop_user
-    plan: free # Plan gratis
-
-  # 2. Este bloque creará el servidor web para PrestaShop
+  # 1. El servidor web de PrestaShop
   - type: web
     name: mi-prestashop-web
     env: docker
-    plan: free # Plan gratis
+    plan: free
     envVars:
       - key: DB_SERVER
-        fromDatabase:
-          name: prestashop-db
-          property: host
+        value: localhost
       - key: DB_USER
-        fromDatabase:
-          name: prestashop-db
-          property: user
+        value: root
       - key: DB_PASSWORD
-        fromDatabase:
-          name: prestashop-db
-          property: password
+        value: prestashop
       - key: DB_NAME
-        fromDatabase:
-          name: prestashop-db
-          property: name
+        value: prestashop
       - key: PS_DEV_MODE
         value: "1"
