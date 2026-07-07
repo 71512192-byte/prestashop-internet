@@ -1,4 +1,4 @@
-FROM bitnami/prestashop:8
+FROM prestashop/prestashop:8.1.1-apache
 
-# Exponer el puerto estándar que usa Render
-EXPOSE 8080
+# Corregimos el script interno para que Render no falle con el error 127
+ENTRYPOINT ["/bin/bash", "-c", "sed -i 's/exec \"\$@\"/# exec \"\$@\"/g' /tmp/docker_run.sh && /tmp/docker_run.sh apache2-foreground"]
